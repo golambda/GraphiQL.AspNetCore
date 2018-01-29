@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>GraphiQL.AspNetCore</id>
+    <title>GraphiQL.AspNetCore</title>
+    <authors>Daniel Le Pelley</authors>
+    <description>GraphiQL Asp .Net Core Middleware</description>
+    <copyright>Copyright 2018 (c) GoLambda Ltd. All rights reserved.</copyright>
+    <tags>graphiql graphql asp .net core </tags>
+  </metadata>
+</package>

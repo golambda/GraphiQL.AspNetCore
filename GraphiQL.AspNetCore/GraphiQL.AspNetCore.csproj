@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\bundle.js" />
+    <None Remove="assets\graphiql.css" />
+    <None Remove="assets\index.html" />
+    <None Remove="assets\style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="assets\bundle.js" />
+    <EmbeddedResource Include="assets\graphiql.css" />
+    <EmbeddedResource Include="assets\index.html" />
+    <EmbeddedResource Include="assets\style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>

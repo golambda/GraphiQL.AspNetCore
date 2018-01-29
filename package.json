@@ -1,0 +1,38 @@
+{
+  "name": "ficexo-graphiql",
+  "version": "1.0.0",
+  "description": "GraphiQL implementation to support GraphQL endpoints",
+  "main": "gulpfile.js",
+  "scripts": {
+    "lint": "tslint -c tslint.json 'src/**/*.tsx'",
+    "test": "mocha -r ts-node/register test/**/*.test.ts*",
+    "build": "gulp build",
+    "start": "gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://sgithub.fr.world.socgen/CTT-FIC-EXO/FicExo.GraphiQL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^16.0.0",
+    "graphiql": "^0.11.10",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.3",
+    "browser-sync": "^2.21.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-exec": "^2.1.3",
+    "gulp-less": "^3.3.2",
+    "path": "^0.12.7",
+    "source-map-loader": "^0.2.1",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2",
+    "webpack-stream": "^4.0.0"
+  }
+}

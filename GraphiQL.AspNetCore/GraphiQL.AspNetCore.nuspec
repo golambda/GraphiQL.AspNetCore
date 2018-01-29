@@ -4,6 +4,7 @@
     <id>GraphiQL.AspNetCore</id>
     <title>GraphiQL.AspNetCore</title>
     <authors>Daniel Le Pelley</authors>
+    <projectUrl>https://github.com/golambda/GraphiQL.AspNetCore</projectUrl>
     <description>GraphiQL Asp .Net Core Middleware</description>
     <copyright>Copyright 2018 (c) GoLambda Ltd. All rights reserved.</copyright>
     <tags>graphiql graphql asp .net core </tags>

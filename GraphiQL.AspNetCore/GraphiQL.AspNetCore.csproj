@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageId>GraphiQL.AspNetCore</PackageId>
+    <Authors>Daniel Le Pelley</Authors>
+    <Description>GraphiQL user interface for Asp .Net Core 2</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageIconUrl>https://github.com/golambda/GraphiQL.AspNetCore</PackageIconUrl>
+    <Copyright>Copyright 2018 (c) GoLambda Ltd. All rights reserved.</Copyright>
+    <PackageTags>graphiql graphql asp .net core</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

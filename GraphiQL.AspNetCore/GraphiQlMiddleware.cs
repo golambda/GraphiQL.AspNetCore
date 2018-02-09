@@ -11,9 +11,11 @@ namespace GraphiQL.AspNetCore
         private readonly RequestDelegate _next;
         private readonly GraphiQLSettings _graphiQLSettings;
         private readonly Assembly _assembly;
+        private IGraphiQLRouteChecker _graphiQLRouteChecker;
 
-        public GraphiQLMiddleware(RequestDelegate next, GraphiQLSettings graphiQLSettings)
+        public GraphiQLMiddleware(RequestDelegate next, GraphiQLSettings graphiQLSettings, IGraphiQLRouteChecker graphiQLRouteChecker)
         {
+            _graphiQLRouteChecker = graphiQLRouteChecker;
             _graphiQLSettings = graphiQLSettings;
             _next = next;
             _assembly = typeof(GraphiQLExtensions).GetTypeInfo().Assembly;
@@ -21,7 +23,7 @@ namespace GraphiQL.AspNetCore
 
         public async Task Invoke(HttpContext context)
         {
-            if (IsPathMatch(context.Request.Path) && IsCorrectContentType(context))
+            if (_graphiQLRouteChecker.IsMatch(context))
             {
                 var fileName = GetFileName(context);
 
@@ -57,13 +59,6 @@ namespace GraphiQL.AspNetCore
             }
         }
 
-        private bool IsPathMatch(PathString requestPath)
-        {
-            return requestPath != null &&
-                   requestPath.HasValue &&
-                   requestPath.Value.ToLowerInvariant().StartsWith(GetGraphiQLPathConfig());
-        }
-
         private string GetGraphiQLPathConfig()
         {
             return _graphiQLSettings.GraphiQLPath.StartsWith("/")
@@ -86,13 +81,6 @@ namespace GraphiQL.AspNetCore
             return string.IsNullOrEmpty(fileName)
                 ? "index.html"
                 : fileName;
-        }
-
-        private static bool IsCorrectContentType(HttpContext httpContext)
-        {
-            return 
-                string.IsNullOrEmpty(httpContext.Request.ContentType) ||
-                !httpContext.Request.ContentType.Contains("application/json");
         }
 
         private string BuildHtml(string rawHtml)

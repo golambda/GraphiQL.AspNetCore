@@ -13,7 +13,7 @@ namespace GraphiQL.AspNetCore
         {
             return app
                 .UseMiddleware<GraphiQLConfigurationMiddleware>(graphiQLSettings)
-                .UseMiddleware<GraphiQLMiddleware>(graphiQLSettings);
+                .UseMiddleware<GraphiQLMiddleware>(graphiQLSettings, new GraphiQLRouteChecker(graphiQLSettings.GraphiQLPath));
         }
     }
 }

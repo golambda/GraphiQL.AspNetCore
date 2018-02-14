@@ -37,10 +37,18 @@ namespace GraphiQL.AspNetCore.Demo
             {
                 DefaultQuery = "{defaultQuery(value: \"1\")}",
                 Query = "{defaultQuery(value: \"1\")}",
-                GraphiQLPath = "api/graphql",
+                GraphiQLPath = "graphql",
                 GraphQLEndpoint = "graphql-endpoint",
                 PageTitle = "some-title"
             });
+
+            app.UseGraphiQL(build => build
+                    .DefaultQuery("{defaultQuery(value: \"2\")}")
+                    .Query("{defaultQuery(value: \"2\")}")
+                    .GraphiQLPath("graphql2")
+                    .GraphQLEndpoint("graphql-endpoint2")
+                    .PageTitle("some-title-2")
+            );
 
             app.UseMvc(routes =>
             {

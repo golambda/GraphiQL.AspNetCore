@@ -72,7 +72,12 @@ namespace GraphiQL.AspNetCore.Test
                 await Task.FromResult(0);
             }
 
-            return new GraphiQLMiddleware(RequestDelegate, CreateGraphiQLSettings(), new GraphiQLRouteChecker(GraphiQLPath));
+            return new GraphiQLMiddleware(
+                RequestDelegate,
+                new GraphiQLConfiguration(
+                CreateGraphiQLSettings(),
+                new GraphiQLRouteChecker(GraphiQLPath),
+                new GraphiQLResourceLoader(typeof(GraphiQLMiddleware).Assembly)));
         }
 
         private static GraphiQLSettings CreateGraphiQLSettings()

@@ -11,12 +11,16 @@ namespace GraphiQL.AspNetCore
         private readonly RequestDelegate _next;
         private readonly GraphiQLSettings _graphiQLSettings;
         private readonly Assembly _assembly;
-        private IGraphiQLRouteChecker _graphiQLRouteChecker;
+        private readonly IGraphiQLRouteChecker _graphiQLRouteChecker;
+        private readonly IGraphiQLResourceLoader _graphiQLResourceLoader;
 
-        public GraphiQLMiddleware(RequestDelegate next, GraphiQLSettings graphiQLSettings, IGraphiQLRouteChecker graphiQLRouteChecker)
+        public GraphiQLMiddleware(
+            RequestDelegate next,
+            GraphiQLConfiguration graphiQLConfiguration)
         {
-            _graphiQLRouteChecker = graphiQLRouteChecker;
-            _graphiQLSettings = graphiQLSettings;
+            _graphiQLResourceLoader = graphiQLConfiguration.ResourceLoader;
+            _graphiQLRouteChecker = graphiQLConfiguration.RouteChecker;
+            _graphiQLSettings = graphiQLConfiguration.Settings;
             _next = next;
             _assembly = typeof(GraphiQLExtensions).GetTypeInfo().Assembly;
         }
@@ -27,9 +31,7 @@ namespace GraphiQL.AspNetCore
             {
                 var fileName = GetFileName(context);
 
-                var resourceName = $"GraphiQL.AspNetCore.assets.{fileName}";
-
-                using (var stream = _assembly.GetManifestResourceStream(resourceName))
+                using (var stream = _graphiQLResourceLoader.Load(fileName))
                 {
                     if (stream == null)
                     {
@@ -37,19 +39,19 @@ namespace GraphiQL.AspNetCore
                     }
                     else
                     {
-                        using (var reader = new StreamReader(stream))
+                        if (fileName.EndsWith(".html"))
                         {
-                            var content = reader.ReadToEnd();
-
-                            if (resourceName.EndsWith(".html"))
+                            using (var reader = new StreamReader(stream))
                             {
+                                var content = reader.ReadToEnd();
                                 await context.Response.WriteAsync(BuildHtml(content));
                             }
-                            else
-                            {
-                                await context.Response.WriteAsync(content);
-                            }
                         }
+                        else
+                        {
+                            await stream.CopyToAsync(context.Response.Body);
+                        }
+
                     }
                 }
             }
